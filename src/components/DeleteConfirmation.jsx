@@ -1,4 +1,17 @@
+import { useEffect } from 'react';
+
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
+  // Functions as useEffect dependencies can trigger reruns on every render
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      onConfirm();
+    }, 3000)
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [onConfirm]);
+
   return (
     <div id="delete-confirmation">
       <h2>Are you sure?</h2>
