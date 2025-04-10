@@ -1,19 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import ProgressBar from './ProgressBar';
 
 const TIMER = 3000;
 
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
-  const [remainingTime, setRemainingTime] = useState(TIMER);
-
-  // Update the remaining time every 10ms and clear the interval when the modal disappears
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setRemainingTime(prevTime => prevTime - 10);
-    }, 10);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
   // Functions as useEffect dependencies can trigger reruns on every render
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -37,7 +27,7 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
           Yes
         </button>
       </div>
-      <progress value={remainingTime} max={TIMER}/>
+      <ProgressBar timer={TIMER}/>
     </div>
   );
 }
